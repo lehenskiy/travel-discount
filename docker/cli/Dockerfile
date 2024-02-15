@@ -9,7 +9,7 @@ ENV COMPOSER_HOME=/home/$USER/.composer
 RUN apt-get update \
     && apt-get install -qq p7zip-full libzip-dev zip git curl libfcgi-bin libpq-dev libicu-dev \
     && apt-get clean \
-    && docker-php-ext-install zip intl gd \
+    && docker-php-ext-install zip intl \
     && curl -sS "https://getcomposer.org/installer" | php -- --install-dir=/usr/local/bin --filename=composer \
     && curl -sS https://get.symfony.com/cli/installer | bash \
     && pecl install xdebug \
