@@ -29,10 +29,10 @@ abstract class AbstractTravelEarlyBookingDiscount
             return $this->calculateSevenPercentDiscount($travelPrice);
         }
         if ((int)$travelPaymentDate->diff($this->getFivePercentDiscountLastDate())->format('%r%a') >= 0) {
-            return $this->calculateSevenPercentDiscount($travelPrice);
+            return $this->calculateFivePercentDiscount($travelPrice);
         }
         if ((int)$travelPaymentDate->diff($this->getThreePercentDiscountLastDate())->format('%r%a') >= 0) {
-            return $this->calculateSevenPercentDiscount($travelPrice);
+            return $this->calculateThreePercentDiscount($travelPrice);
         }
 
         return 0;
