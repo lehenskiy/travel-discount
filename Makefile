@@ -1,7 +1,7 @@
 ###< manipulations with docker compose app >###
-init: up compose
+init: up compose install-assets
 
-init-from-scratch: remove up-no-cache compose
+init-from-scratch: remove up-no-cache compose install-assets
 
 up:
 	docker compose up -d --build
@@ -24,6 +24,10 @@ up-no-cache:
 ###< actions with app >###
 compose:
 	docker compose run --no-deps --rm cli composer install --no-cache --no-progress --no-interaction --no-ansi
+
+# for SwaggerUI doc
+install-assets:
+	docker compose run --no-deps --rm cli php bin/console assets:install
 
 # test production behavior in dev environment
 compose-no-dev:
