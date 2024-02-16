@@ -38,12 +38,15 @@ class TravelEarlyBookingDiscountCalculator
         } elseif (
             $this->travelStartingFromOctoberThisYearToFourteenthJanuaryNextYearDiscount->isApplicable($travelStartDate)
         ) {
-            $this->travelStartingFromOctoberThisYearToFourteenthJanuaryNextYearDiscount->calculate(
+            $discount = $this->travelStartingFromOctoberThisYearToFourteenthJanuaryNextYearDiscount->calculate(
                 $travelPaymentDate,
                 $travelPrice
             );
         } elseif ($this->travelStartingFromFifteenthJanuaryNextYearDiscount->isApplicable($travelStartDate)) {
-            $this->travelStartingFromFifteenthJanuaryNextYearDiscount->calculate($travelPaymentDate, $travelPrice);
+            $discount = $this->travelStartingFromFifteenthJanuaryNextYearDiscount->calculate(
+                $travelPaymentDate,
+                $travelPrice
+            );
         }
 
         return ($discount > self::MAX_EARLY_BOOKING_DISCOUNT) ? self::MAX_EARLY_BOOKING_DISCOUNT : $discount;
