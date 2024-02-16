@@ -41,11 +41,10 @@ test:
 	docker compose run --no-deps --rm cli php bin/phpunit
 
 test-unit:
-	docker compose run --no-deps --rm cli php bin/phpunit --testsuite unit
+	docker compose run --no-deps --rm cli php bin/phpunit --testsuite Unit
 
 test-integration:
-	docker compose run --no-deps --rm cli php bin/phpunit --testsuite integration
+	docker compose run --no-deps --rm cli php bin/phpunit --testsuite Integration
 
 test-domain:
 	docker compose run --no-deps --rm cli php bin/phpunit --testsuite $(DOMAIN)
-	docker compose run --no-deps --rm cli php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --all-or-nothing
