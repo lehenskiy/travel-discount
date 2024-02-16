@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Travel\Discount\Price;
 
-use App\Api\Travel\Discount\Price\TravelDiscountPriceDTO;
 use App\Domain\Travel\Discount\TravelChildDiscount;
 use App\Domain\Travel\Discount\TravelEarlyBookingDiscountCalculator;
 
