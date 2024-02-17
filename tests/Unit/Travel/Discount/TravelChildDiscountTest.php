@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Travel\Discount;
+namespace Tests\Unit\Travel\Discount;
 
 use App\Domain\Travel\Discount\TravelChildDiscount;
 use PHPUnit\Framework\TestCase;

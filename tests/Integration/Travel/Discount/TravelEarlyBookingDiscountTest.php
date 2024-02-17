@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Integration\Travel\Discount;
+namespace Tests\Integration\Travel\Discount;
 
 use App\Domain\Travel\Discount\TravelEarlyBookingDiscountCalculator;
 use DateTimeImmutable;
