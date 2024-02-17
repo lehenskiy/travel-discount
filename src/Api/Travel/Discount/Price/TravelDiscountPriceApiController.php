@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Api\Travel\Discount\Price;
 
-use App\Domain\Travel\Discount\Price\TravelDiscountPriceDTO;
+use App\Domain\Travel\Discount\Price\TravelDiscountPriceCalculator;
 use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\RequestBody;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Domain\Travel\Discount\Price\TravelDiscountPriceCalculator;
 
-class Controller extends AbstractController
+class TravelDiscountPriceApiController extends AbstractController
 {
     #[RequestBody(
         required: true,
