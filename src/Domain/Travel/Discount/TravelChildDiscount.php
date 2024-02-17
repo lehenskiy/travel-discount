@@ -13,9 +13,12 @@ class TravelChildDiscount
     private const MAX_CLIENT_6_YEARS_OLD_DISCOUNT = 4500;
     private const CLIENT_12_YEARS_OLD_DISCOUNT_MULTIPLIER = 0.1;
 
-    public function calculate(DateTimeImmutable $clientBirthDate, int $travelPrice): int
-    {
-        $clientAge = $clientBirthDate->diff(new DateTimeImmutable('now'))->y;
+    public function calculate(
+        DateTimeImmutable $clientBirthDate,
+        DateTimeImmutable $travelPaymentDate,
+        int $travelPrice
+    ): int {
+        $clientAge = $clientBirthDate->diff($travelPaymentDate)->y;
 
         return match (true) {
             ($clientAge >= 3 && $clientAge < 6) => $this->calculateClient3YearsOldDiscount($travelPrice),
