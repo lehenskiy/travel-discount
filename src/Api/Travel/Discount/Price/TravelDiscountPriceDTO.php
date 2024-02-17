@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Travel\Discount\Price;
+namespace App\Api\Travel\Discount\Price;
 
 use DateTimeImmutable;
 use Symfony\Component\Validator\Constraints as Assert;

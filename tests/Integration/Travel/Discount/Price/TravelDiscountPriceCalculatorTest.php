@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Integration\Travel\Discount\Price;
 
+use App\Api\Travel\Discount\Price\TravelDiscountPriceDTO;
 use App\Domain\Travel\Discount\Price\TravelDiscountPriceCalculator;
-use App\Domain\Travel\Discount\Price\TravelDiscountPriceDTO;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
