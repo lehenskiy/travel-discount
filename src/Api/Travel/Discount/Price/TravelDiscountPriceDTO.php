@@ -13,6 +13,10 @@ readonly class TravelDiscountPriceDTO
     public int $travelPrice;
 
     #[Assert\LessThanOrEqual('today', message: 'Birth date value should be less than today')]
+    #[Assert\LessThanOrEqual(
+        propertyPath: 'travelPaymentDate',
+        message: 'Birth date should be less than or equal travel payment date',
+    )]
     public DateTimeImmutable|false $clientBirthDate;
 
     #[Assert\Range(
