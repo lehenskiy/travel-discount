@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Travel\Discount;
 
 use App\Domain\Travel\Discount\TravelChildDiscount;
+use DateInterval;
 use PHPUnit\Framework\TestCase;
 
 class TravelChildDiscountTest extends TestCase
@@ -15,14 +16,13 @@ class TravelChildDiscountTest extends TestCase
 
     public function testCalculateWithClientAgeLessThanThreeReturnsZero(): void
     {
-        $currentYear = (int)(new \DateTimeImmutable())->format('Y');
-        $clienBirthDateWithLessThanThreeYearsOldAge = \DateTimeImmutable::createFromFormat(
-            'Y',
-            (string)($currentYear - 2)
-        );
+        $paymentDate = new \DateTimeImmutable();
+        // see https://en.wikipedia.org/wiki/ISO_8601#Durations
+        $clientBirthDateWithLessThanThreeYearsOldAge = $paymentDate->sub(new DateInterval('P2Y'));
 
         $result = $this->travelChildDiscount->calculate(
-            $clienBirthDateWithLessThanThreeYearsOldAge,
+            $clientBirthDateWithLessThanThreeYearsOldAge,
+            $paymentDate,
             1000
         );
 
@@ -31,14 +31,12 @@ class TravelChildDiscountTest extends TestCase
 
     public function testCalculateWithAdultClientReturnsZero(): void
     {
-        $currentYear = (int)(new \DateTimeImmutable())->format('Y');
-        $adultClient = \DateTimeImmutable::createFromFormat(
-            'Y',
-            (string)($currentYear - self::ADULT_AGE)
-        );
+        $paymentDate = new \DateTimeImmutable();
+        $adultClient = $paymentDate->sub(new DateInterval('P' . self::ADULT_AGE . 'Y'));
 
         $result = $this->travelChildDiscount->calculate(
             $adultClient,
+            $paymentDate,
             1000
         );
 
@@ -47,15 +45,13 @@ class TravelChildDiscountTest extends TestCase
 
     public function testCalculateWithClientSixYearsOldAgeNotReturnsMoreThanMaxDiscount(): void
     {
-        $currentYear = (int)(new \DateTimeImmutable())->format('Y');
-        $sixYearsOldClient = \DateTimeImmutable::createFromFormat(
-            'Y',
-            (string)($currentYear - 6)
-        );
+        $paymentDate = new \DateTimeImmutable();
+        $sixYearsOldClient = $paymentDate->sub(new DateInterval('P6Y'));
 
         $veryBigTravelPrice = 100000000;
         $result = $this->travelChildDiscount->calculate(
             $sixYearsOldClient,
+            $paymentDate,
             $veryBigTravelPrice
         );
 

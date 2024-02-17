@@ -19,7 +19,11 @@ class TravelDiscountPriceCalculator
     public function calculateTravelWithDiscountPrice(TravelDiscountPriceDTO $travelDiscountPriceDTO): int
     {
         $travelPrice = $travelDiscountPriceDTO->travelPrice;
-        $travelPrice -= $this->childDiscount->calculate($travelDiscountPriceDTO->clientBirthDate, $travelPrice);
+        $travelPrice -= $this->childDiscount->calculate(
+            $travelDiscountPriceDTO->clientBirthDate,
+            $travelDiscountPriceDTO->travelPaymentDate,
+            $travelPrice
+        );
         $travelPrice -= $this->earlyBookingDiscount->calculate(
             $travelDiscountPriceDTO->travelStartDate,
             $travelDiscountPriceDTO->travelPaymentDate,
