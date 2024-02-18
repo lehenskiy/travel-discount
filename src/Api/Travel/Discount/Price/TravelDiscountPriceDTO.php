@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 readonly class TravelDiscountPriceDTO
 {
+    public const DATE_TIME_INPUT_FORMAT = 'Y-m-d';
+
     #[Assert\GreaterThanOrEqual(1000, message: 'Price should be more than 1000')]
     public int $travelPrice;
 
@@ -21,7 +23,7 @@ readonly class TravelDiscountPriceDTO
 
     #[Assert\Range(
         notInRangeMessage: 'Start date value should be from current year or not later than next year',
-        invalidDateTimeMessage: 'Invalid date(format: dd-mm-YYYY)',
+        invalidDateTimeMessage: 'Invalid date(format: yyyy-mm-dd)',
         min: 'first day of January',
         max: 'last day of December next year',
     )]
@@ -30,7 +32,7 @@ readonly class TravelDiscountPriceDTO
     #[Assert\AtLeastOneOf(constraints: [
         new Assert\Range(
             notInRangeMessage: 'Payment date value should be from current year or not later than next year',
-            invalidDateTimeMessage: 'Invalid date(format: dd-mm-YYYY)',
+            invalidDateTimeMessage: 'Invalid date(format: yyyy-mm-dd)',
             min: 'first day of January',
             max: 'last day of December next year',
         ),
@@ -52,12 +54,12 @@ readonly class TravelDiscountPriceDTO
         ?string $paymentDate,
     ) {
         $this->travelPrice = $price;
-        $this->clientBirthDate = DateTimeImmutable::createFromFormat('Y-m-d', $birthDate);
+        $this->clientBirthDate = DateTimeImmutable::createFromFormat(self::DATE_TIME_INPUT_FORMAT, $birthDate);
         $this->travelStartDate = ($startDate === null)
             ? new DateTimeImmutable()
-            : DateTimeImmutable::createFromFormat('Y-m-d', $startDate);
+            : DateTimeImmutable::createFromFormat(self::DATE_TIME_INPUT_FORMAT, $startDate);
         $this->travelPaymentDate = ($paymentDate === null)
             ? null
-            : DateTimeImmutable::createFromFormat('Y-m-d', $paymentDate);
+            : DateTimeImmutable::createFromFormat(self::DATE_TIME_INPUT_FORMAT, $paymentDate);
     }
 }
