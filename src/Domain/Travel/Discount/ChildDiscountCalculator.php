@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace App\Domain\Travel\Discount;
 
-use DateTimeImmutable;
+use App\Api\Travel\Discount\Price\TravelDiscountPriceDTO;
 
-class TravelChildDiscount
+class ChildDiscountCalculator  implements DiscountCalculatorInterface
 {
     private const CLIENT_3_YEARS_OLD_DISCOUNT_MULTIPLIER = 0.8;
     private const CLIENT_6_YEARS_OLD_DISCOUNT_MULTIPLIER = 0.3;
     private const MAX_CLIENT_6_YEARS_OLD_DISCOUNT = 4500;
     private const CLIENT_12_YEARS_OLD_DISCOUNT_MULTIPLIER = 0.1;
 
-    public function calculate(
-        DateTimeImmutable $clientBirthDate,
-        DateTimeImmutable $travelPaymentDate,
-        int $travelPrice
-    ): int {
-        $clientAge = $clientBirthDate->diff($travelPaymentDate)->y;
+    public function calculate(TravelDiscountPriceDTO $travelDiscountPriceDTO): int {
+        $clientAge = $travelDiscountPriceDTO->clientBirthDate->diff($travelDiscountPriceDTO->travelPaymentDate)->y;
 
         return match (true) {
-            ($clientAge >= 3 && $clientAge < 6) => $this->calculateClient3YearsOldDiscount($travelPrice),
-            ($clientAge >= 6 && $clientAge < 12) => $this->calculateClient6YearsOldDiscount($travelPrice),
-            ($clientAge >= 12 && $clientAge < 18) => $this->calculateClient12YearsOldDiscount($travelPrice),
+            ($clientAge >= 3 && $clientAge < 6)
+                => $this->calculateClient3YearsOldDiscount($travelDiscountPriceDTO->travelPrice),
+            ($clientAge >= 6 && $clientAge < 12)
+                => $this->calculateClient6YearsOldDiscount($travelDiscountPriceDTO->travelPrice),
+            ($clientAge >= 12 && $clientAge < 18)
+                => $this->calculateClient12YearsOldDiscount($travelDiscountPriceDTO->travelPrice),
             default => 0,
         };
     }
