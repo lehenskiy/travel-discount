@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Travel\Discount\TravelEarlyBookingDiscount;
+namespace App\Domain\Travel\Discount\EarlyBookingDiscount;
 
 use DateTimeImmutable;
 
-abstract class AbstractTravelEarlyBookingDiscount
+abstract class AbstractEarlyBookingDiscount
 {
-    protected readonly int $currentYear;
-    protected readonly int $nextYear;
-
     private const SEVEN_PERCENTS_DISCOUNT_MULTIPLIER = 0.07;
     private const FIVE_PERCENTS_DISCOUNT_MULTIPLIER = 0.05;
     private const THREE_PERCENTS_DISCOUNT_MULTIPLIER = 0.03;
+
+    protected readonly int $currentYear;
+    protected readonly int $nextYear;
 
     public function __construct()
     {
