@@ -14,7 +14,7 @@ class ChildDiscountCalculator  implements DiscountCalculatorInterface
     private const CLIENT_12_YEARS_OLD_DISCOUNT_MULTIPLIER = 0.1;
 
     public function calculate(TravelDiscountPriceDTO $travelDiscountPriceDTO): int {
-        $clientAge = $travelDiscountPriceDTO->clientBirthDate->diff($travelDiscountPriceDTO->travelPaymentDate)->y;
+        $clientAge = $travelDiscountPriceDTO->clientBirthDate->diff($travelDiscountPriceDTO->travelStartDate)->y;
 
         return match (true) {
             ($clientAge >= 3 && $clientAge < 6)

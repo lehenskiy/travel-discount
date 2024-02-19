@@ -18,14 +18,14 @@ class TravelChildDiscountTest extends TestCase
 
     public function testCalculateWithClientAgeLessThanThreeReturnsZero(): void
     {
-        $paymentDate = new \DateTimeImmutable();
+        $startDate = new \DateTimeImmutable();
         // see https://en.wikipedia.org/wiki/ISO_8601#Durations
-        $clientBirthDateWithLessThanThreeYearsOldAge = $paymentDate->sub(new DateInterval('P2Y'));
+        $clientBirthDateWithLessThanThreeYearsOldAge = $startDate->sub(new DateInterval('P2Y'));
         $inputDTO = new TravelDiscountPriceDTO(
             1000,
             $clientBirthDateWithLessThanThreeYearsOldAge->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
-            $paymentDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
-            $paymentDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
+            $startDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
+            $startDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
         );
 
         $result = $this->travelChildDiscount->calculate($inputDTO);
@@ -35,13 +35,13 @@ class TravelChildDiscountTest extends TestCase
 
     public function testCalculateWithAdultClientReturnsZero(): void
     {
-        $paymentDate = new \DateTimeImmutable();
-        $adultClientBirthDate = $paymentDate->sub(new DateInterval('P' . self::ADULT_AGE . 'Y'));
+        $startDate = new \DateTimeImmutable();
+        $adultClientBirthDate = $startDate->sub(new DateInterval('P' . self::ADULT_AGE . 'Y'));
         $inputDTO = new TravelDiscountPriceDTO(
             1000,
             $adultClientBirthDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
-            $paymentDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
-            $paymentDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
+            $startDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
+            $startDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
         );
 
         $result = $this->travelChildDiscount->calculate($inputDTO);
@@ -51,14 +51,14 @@ class TravelChildDiscountTest extends TestCase
 
     public function testCalculateWithClientSixYearsOldAgeNotReturnsMoreThanMaxDiscount(): void
     {
-        $paymentDate = new \DateTimeImmutable();
-        $sixYearsOldClient = $paymentDate->sub(new DateInterval('P6Y'));
+        $startDate = new \DateTimeImmutable();
+        $sixYearsOldClient = $startDate->sub(new DateInterval('P6Y'));
         $veryBigTravelPrice = 100000000;
         $inputDTO = new TravelDiscountPriceDTO(
             $veryBigTravelPrice,
             $sixYearsOldClient->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
-            $paymentDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
-            $paymentDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
+            $startDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
+            $startDate->format(TravelDiscountPriceDTO::DATE_TIME_INPUT_FORMAT),
         );
 
         $result = $this->travelChildDiscount->calculate($inputDTO);
