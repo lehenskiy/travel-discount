@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Travel\Discount;
+namespace App\Tests\Unit\Travel\Discount;
 
 use App\Api\Travel\Discount\Price\TravelDiscountPriceDTO;
 use App\Domain\Travel\Discount\ChildDiscountCalculator;
